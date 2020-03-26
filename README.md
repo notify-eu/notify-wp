@@ -57,7 +57,7 @@ If enabled, all notifications will be sent to the above "To Name" and "To Addres
 
 do_action( 'notify_send', 'welcomeTemplate', array('to' => array('John Doe', 'john@acme.com'), 'cc' => array('john Doe', 'john@acme.com')), 'nl', 'SMTP', array('username' => 'John'));
 
-Action notify_send takes 5 arguments:
+- Action notify_send takes 5 arguments:
     - template (mandatory)
     - recipients ('to' field is mandatory)
     - language (f.e. nl / fr / en)

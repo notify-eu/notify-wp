@@ -9,18 +9,18 @@
  *
  * @link              https://notify.eu
  * @since             1.0.0
- * @package           Notify
+ * @package           Notify-eu
  *
  * @wordpress-plugin
- * Plugin Name:       Notify
- * Plugin URI:        https://notify.eu/
+ * Plugin Name:       Notify-eu
+ * Plugin URI:        https://github.com/notify-eu/notify-wp
  * Description:       Notify, a new messaging and notification platform for a user friendly and faster communication in B2B & B2C.
  * Version:           1.0.0
  * Author:            Notify
  * Author URI:        https://notify.eu/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       notify
+ * Text Domain:       notify-eu
  * Domain Path:       /languages
  */
 
@@ -34,34 +34,34 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'NOTIFY_VERSION', '1.0.0' );
+define( 'NOTIFY_EU_VERSION', '1.0.0' );
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-notify-activator.php
+ * This action is documented in includes/class-notify-eu-activator.php
  */
-function activate_notify() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-notify-activator.php';
-	Notify_Activator::activate();
+function activate_notify_eu() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-notify-eu-activator.php';
+	Notify_Eu_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-notify-deactivator.php
+ * This action is documented in includes/class-notify-eu-deactivator.php
  */
-function deactivate_notify() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-notify-deactivator.php';
-	Notify_Deactivator::deactivate();
+function deactivate_notify_eu() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-notify-eu-deactivator.php';
+	Notify_Eu_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_notify' );
-register_deactivation_hook( __FILE__, 'deactivate_notify' );
+register_activation_hook( __FILE__, 'activate_notify_eu' );
+register_deactivation_hook( __FILE__, 'deactivate_notify_eu' );
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-notify.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-notify-eu.php';
 
 /**
  * Begins execution of the plugin.
@@ -72,10 +72,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-notify.php';
  *
  * @since    1.0.0
  */
-function run_notify() {
+function run_notify_eu() {
 
-	$plugin = new Notify();
+	$plugin = new Notify_Eu();
 	$plugin->run();
 
 }
-run_notify();
+run_notify_eu();

@@ -8,8 +8,8 @@
  * @link       https://notify.eu
  * @since      1.0.0
  *
- * @package    Notify
- * @subpackage Notify/includes
+ * @package    Notify-eu
+ * @subpackage Notify-eu/includes
  */
 
 /**
@@ -22,11 +22,11 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Notify
- * @subpackage Notify/includes
+ * @package    Notify-eu
+ * @subpackage Notify-eu/includes
  * @author     Notify <info@notify.eu>
  */
-class Notify {
+class Notify_Eu {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -34,7 +34,7 @@ class Notify {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Notify_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Notify_Eu_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -66,12 +66,12 @@ class Notify {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'NOTIFY_VERSION' ) ) {
-			$this->version = NOTIFY_VERSION;
+		if ( defined( 'NOTIFY_EU_VERSION' ) ) {
+			$this->version = NOTIFY_EU_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'notify';
+		$this->plugin_name = 'notify-eu';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -101,30 +101,30 @@ class Notify {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-notify-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-notify-eu-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-notify-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-notify-eu-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-notify-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-notify-eu-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-notify-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-notify-eu-public.php';
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-notify-send.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-notify-eu-send.php';
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-notify-message.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-notify-eu-message.php';
 
-		$this->loader = new Notify_Loader();
+		$this->loader = new Notify_Eu_Loader();
 
 	}
 
@@ -139,7 +139,7 @@ class Notify {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Notify_i18n( $this->get_plugin_name(), $this->get_version() );
+		$plugin_i18n = new Notify_Eu_i18n( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -154,7 +154,7 @@ class Notify {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Notify_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Notify_Eu_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -173,13 +173,20 @@ class Notify {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Notify_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Notify_eu_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-		$plugin_send = new Notify_Send( $this->get_plugin_name(), $this->get_version() );
+		$plugin_send = new Notify_Eu_Send( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( 'init', $this, 'trigger' );
 		$this->loader->add_action( 'notify_send', $plugin_send, 'send_notification', 10, 5 );
 	}
+
+	public function trigger() {
+        do_action( 'notify_send', 'welcomeTemplate', array('to' => array(array('name' => 'John Doe', 'email' => 'john@acme.com')), 'cc' => array(array('name' => 'John Doe', 'email' => 'john@acme.com'))), 'nl', 'SMTP', array('username' => 'John'));
+    }
+
+
 
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.
@@ -205,7 +212,7 @@ class Notify {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Notify_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Notify_Eu_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

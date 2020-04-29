@@ -29,6 +29,6 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
-$option_name = 'notify';
+$option_name = 'notify_eu';
 
 delete_option( $option_name );

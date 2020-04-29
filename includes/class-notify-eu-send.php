@@ -5,19 +5,19 @@
  * @link       https://notify.eu
  * @since      1.0.0
  *
- * @package    Notify
- * @subpackage Notify/includes
+ * @package    Notify-eu
+ * @subpackage Notify-eu/includes
  */
 
 /**
  * The send plugin class.
  *
  * @since      1.0.0
- * @package    Notify
- * @subpackage Notify/includes
+ * @package    Notify-eu
+ * @subpackage Notify-eu/includes
  * @author     Notify <info@notify.eu>
  */
-class Notify_Send {
+class Notify_Eu_Send {
 
 	/**
 	 * The ID of this plugin.
@@ -65,9 +65,18 @@ class Notify_Send {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      Notify_Message    $message
+	 * @var      Notify_Eu_Message    $message
 	 */
 	private $message;
+
+    /**
+     * The options name to be used in this plugin
+     *
+     * @since    1.0.0
+     * @access    private
+     * @var    string $option_name Option name of this plugin
+     */
+    private $option_name = 'notify_eu';
 
 
 	/**
@@ -91,13 +100,13 @@ class Notify_Send {
 	 */
 	public function send_notification( $template, $recipients, $language = '', $transport = '', $params = null ) {
 		// Compact the input, apply the filters, and extract them back out
-		$options = get_option( 'notify' );
+		$options = get_option( $this->option_name );
 
 		if ( ! $options ) {
-			return new WP_Error( 'notify', 'missing notify options' );
+			return new WP_Error( $this->plugin_name, 'missing notify options' );
 		}
 
-		$this->message = new Notify_Message();
+		$this->message = new Notify_Eu_Message();
 		$this->message->setClientId( $options['client'] );
 		$this->message->setSecret( $options['secret'] );
 		$this->message->setTransport( $options['transport'] );
@@ -108,13 +117,13 @@ class Notify_Send {
 			$this->message->setTransport( $transport );
 		}
 		if ( $language ) {
-			$this->message->setLanguage( $transport );
+			$this->message->setLanguage( $language );
 		}
 		if ( is_array( $params ) && ! empty( $params ) ) {
 			$this->message->setParams( $params );
 		}
 
-		if ( isset( $options['override'] ) && $options['override'] == 1 ) {
+		if ( isset( $options['override'] ) && $options['override'] == 1 && !empty($options['to_email'])) {
 			$this->message->addRecipient( $options['to_name'], $options['to_email'] );
 		} elseif ( is_array( $recipients ) && ! empty( $recipients ) ) {
 			if ( isset( $recipients['to'] ) ) {
@@ -136,11 +145,12 @@ class Notify_Send {
 			}
 		}
 
-		$validation = $this->validate_message();
+        $validation = $this->validate_message();
 		if ( is_wp_error( $validation ) ) {
 			$this->log_error( $validation );
 			return false;
 		}
+
 		$this->endpoint_url = isset( $options['endpoint'] ) && ! empty( $options['endpoint'] ) ? $options['endpoint'] : self::API_ENDPOINT;
 		$response           = wp_remote_post(
 			$this->endpoint_url,
@@ -191,7 +201,7 @@ class Notify_Send {
 		if ( empty( $this->message->getClientId() ) || empty( $this->message->getSecret() ) ) {
 			$error->add( $this->plugin_name, 'missing clientId/secretKey' );
 		}
-		if ( ! empty( $this->message->getNotificationType() ) ) {
+		if ( empty( $this->message->getNotificationType() ) ) {
 			$error->add( $this->plugin_name, 'missing template' );
 		}
 		if ( empty( $this->message->getTransport() ) ) {

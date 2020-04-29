@@ -5,8 +5,8 @@
  * @link       https://notify.eu
  * @since      1.0.0
  *
- * @package    Notify
- * @subpackage Notify/includes
+ * @package    Notify-eu
+ * @subpackage Notify-eu/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Notify
- * @subpackage Notify/includes
+ * @package    Notify-eu
+ * @subpackage Notify-eu/includes
  * @author     Notify <info@notify.eu>
  */
-class Notify_Loader {
+class Notify_Eu_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

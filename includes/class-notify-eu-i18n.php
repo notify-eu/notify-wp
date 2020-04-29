@@ -8,8 +8,8 @@
  * @link       https://notify.eu
  * @since      1.0.0
  *
- * @package    Notify
- * @subpackage Notify/includes
+ * @package    Notify-eu
+ * @subpackage Notify-eu/includes
  */
 
 /**
@@ -19,11 +19,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Notify
- * @subpackage Notify/includes
+ * @package    Notify-eu
+ * @subpackage Notify-eu/includes
  * @author     Notify <info@notify.eu>
  */
-class Notify_i18n {
+class Notify_Eu_i18n {
 	/**
 	 * The ID of this plugin.
 	 *

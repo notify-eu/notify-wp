@@ -5,8 +5,8 @@
  * @link       http://notify.eu
  * @since      1.0.0
  *
- * @package    Notify
- * @subpackage Notify/public
+ * @package    Notify-eu
+ * @subpackage Notify-eu/public
  */
 
 /**
@@ -15,11 +15,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the public-facing stylesheet and JavaScript.
  *
- * @package    Notify
- * @subpackage Notify/public
+ * @package    Notify-eu
+ * @subpackage Notify-eu/public
  * @author     Notify <info@notify.eu>
  */
-class Notify_Public {
+class Notify_Eu_Public {
 
 	/**
 	 * The ID of this plugin.
@@ -72,7 +72,7 @@ class Notify_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/notify-public.css', array(), $this->version, 'all' );
+		//wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/notify-eu-public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -95,7 +95,7 @@ class Notify_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/notify-public.js', array( 'jquery' ), $this->version, false );
+		//wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/notify-eu-public.js', array( 'jquery' ), $this->version, false );
 
 	}
 

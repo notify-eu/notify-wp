@@ -2,6 +2,12 @@
 
 
 The Notify WordPress Plugin allows you to send SMS, mail and push notifications from one integrated platform. The Notify platform makes it possible to use many underlying message services & types via one simple API, which saves a considerable amount of time in terms of integration, development and central management of content and reporting. Work better, faster, smarter!
+
+A <a href="https://notify.eu">Notify</a> account is required to make use of this plugin and the Notify service.
+Please register at https://app.notify.eu/register to make an account.
+
+<a href="https://notify.eu/privacy-policy/">Notify Privacy policy</a>
+
 ## How to Install
 
 ### From the WordPress Plugin Directory
@@ -55,7 +61,7 @@ If enabled, all notifications will be sent to the above "To Name" and "To Addres
 
 ### Usage
 
-do_action( 'notify_send', 'welcomeTemplate', array('to' => array('John Doe', 'john@acme.com'), 'cc' => array('john Doe', 'john@acme.com')), 'nl', 'SMTP', array('username' => 'John'));
+do_action( 'notify_send', 'welcomeTemplate', array('to' => array(array('name' => 'John Doe', 'email' => 'john@acme.com')), 'cc' => array(array('name' => 'John Doe', 'email' => 'john@acme.com'))), 'nl', 'SMTP', array('username' => 'John'));
 
 - Action notify_send takes 5 arguments:
     - template (mandatory)
@@ -63,3 +69,5 @@ do_action( 'notify_send', 'welcomeTemplate', array('to' => array('John Doe', 'jo
     - language (f.e. nl / fr / en)
     - transport (f.e. SMTP)
     - params (extra array of params you want to use in template)
+    
+When an error occurs or some param is missing, an entry will be inserted in debug.log when WP_DEBUG_LOG: true

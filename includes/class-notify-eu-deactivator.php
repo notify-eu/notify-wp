@@ -5,8 +5,8 @@
  * @link       https://notify.eu
  * @since      1.0.0
  *
- * @package    Notify
- * @subpackage Notify/includes
+ * @package    Notify-eu
+ * @subpackage Notify-eu/includes
  */
 
 /**
@@ -15,11 +15,11 @@
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.0
- * @package    Notify
- * @subpackage Notify/includes
+ * @package    Notify-eu
+ * @subpackage Notify-eu/includes
  * @author     Notify <info@notify.eu>
  */
-class Notify_Deactivator {
+class Notify_Eu_Deactivator {
 
 	/**
 	 * Short Description. (use period)

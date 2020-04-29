@@ -5,8 +5,8 @@
  * @link       https://notify.eu
  * @since      1.0.0
  *
- * @package    Notify
- * @subpackage Notify/admin
+ * @package    Notify-eu
+ * @subpackage Notify-eu/admin
  */
 
 /**
@@ -15,11 +15,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Notify
- * @subpackage Notify/admin
+ * @package    Notify-eu
+ * @subpackage Notify-eu/admin
  * @author     Notify <info@notify.eu>
  */
-class Notify_Admin {
+class Notify_Eu_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -37,7 +37,7 @@ class Notify_Admin {
 	 * @access    private
 	 * @var    string $option_name Option name of this plugin
 	 */
-	private $option_name = 'notify';
+	private $option_name = 'notify_eu';
 
 	/**
 	 * The version of this plugin.
@@ -83,7 +83,7 @@ class Notify_Admin {
 
 		wp_enqueue_style(
 			$this->plugin_name,
-			plugin_dir_url( __FILE__ ) . 'css/notify-admin.css',
+			plugin_dir_url( __FILE__ ) . 'css/notify-eu-admin.css',
 			array(),
 			$this->version,
 			'all'
@@ -110,13 +110,13 @@ class Notify_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script(
+		/*wp_enqueue_script(
 			$this->plugin_name,
-			plugin_dir_url( __FILE__ ) . 'js/notify-admin.js',
+			plugin_dir_url( __FILE__ ) . 'js/notify-eu-admin.js',
 			array( 'jquery' ),
 			$this->version,
 			false
-		);
+		);*/
 
 	}
 
@@ -173,7 +173,7 @@ class Notify_Admin {
 	 */
 
 	public function display_plugin_setup_page() {
-		include_once 'partials/notify-admin-display.php';
+		include_once 'partials/notify-eu-admin-display.php';
 	}
 
 	/**
@@ -185,14 +185,14 @@ class Notify_Admin {
 
 		add_settings_section(
 			$this->option_name . '_general',
-			__( 'Configuration', 'notify' ),
+			__( 'Configuration', $this->plugin_name ),
 			array( $this, $this->option_name . '_general_cb' ),
 			$this->plugin_name
 		);
 
 		add_settings_field(
 			$this->option_name . '_client',
-			__( 'Client ID *', 'notify' ),
+			__( 'Client ID *', $this->plugin_name ),
 			array( $this, $this->option_name . '_client_text' ),
 			$this->plugin_name,
 			$this->option_name . '_general',
@@ -201,7 +201,7 @@ class Notify_Admin {
 
 		add_settings_field(
 			$this->option_name . '_secret',
-			__( 'Secret key *', 'notify' ),
+			__( 'Secret key *', $this->plugin_name ),
 			array( $this, $this->option_name . '_secret_text' ),
 			$this->plugin_name,
 			$this->option_name . '_general',
@@ -210,7 +210,7 @@ class Notify_Admin {
 
 		add_settings_field(
 			$this->option_name . '_transport',
-			__( 'Transport', 'notify' ),
+			__( 'Transport', $this->plugin_name ),
 			array( $this, $this->option_name . '_transport_text' ),
 			$this->plugin_name,
 			$this->option_name . '_general',
@@ -219,7 +219,7 @@ class Notify_Admin {
 
 		add_settings_field(
 			$this->option_name . '_language',
-			__( 'Language', 'notify' ),
+			__( 'Language', $this->plugin_name ),
 			array( $this, $this->option_name . '_language_text' ),
 			$this->plugin_name,
 			$this->option_name . '_general',
@@ -228,7 +228,7 @@ class Notify_Admin {
 
 		add_settings_field(
 			$this->option_name . '_endpoint',
-			__( 'Notify endpoint', 'notify' ),
+			__( 'Notify endpoint', $this->plugin_name ),
 			array( $this, $this->option_name . '_endpoint_text' ),
 			$this->plugin_name,
 			$this->option_name . '_general',
@@ -237,7 +237,7 @@ class Notify_Admin {
 
 		add_settings_field(
 			$this->option_name . '_to_name',
-			__( 'To Name', 'notify' ),
+			__( 'To Name', $this->plugin_name ),
 			array( $this, $this->option_name . '_to_name_text' ),
 			$this->plugin_name,
 			$this->option_name . '_general',
@@ -246,7 +246,7 @@ class Notify_Admin {
 
 		add_settings_field(
 			$this->option_name . '_to_email',
-			__( 'To Email', 'notify' ),
+			__( 'To Email', $this->plugin_name ),
 			array( $this, $this->option_name . '_to_email_text' ),
 			$this->plugin_name,
 			$this->option_name . '_general',
@@ -255,13 +255,13 @@ class Notify_Admin {
 
 		add_settings_field(
 			$this->option_name . '_override',
-			__( 'Override "To" Details', 'notify' ),
+			__( 'Override "To" Details', $this->plugin_name ),
 			array( $this, $this->option_name . '_override_select' ),
 			$this->plugin_name,
 			$this->option_name . '_general',
 			array( 'label_for' => $this->option_name . '_override' )
 		);
-		register_setting( $this->plugin_name, $this->plugin_name, array( $this, 'validate' ) );
+		register_setting( $this->plugin_name, $this->option_name, array( $this, 'validate' ) );
 	}
 
 	/**
@@ -269,7 +269,7 @@ class Notify_Admin {
 	 *
 	 * @since  1.0.0
 	 */
-	public function notify_general_cb() {
+	public function notify_eu_general_cb() {
 
 	}
 
@@ -278,7 +278,7 @@ class Notify_Admin {
 	 *
 	 * @since  1.0.0
 	 */
-	public function notify_endpoint_text() {
+	public function notify_eu_endpoint_text() {
 		$options = get_option( $this->option_name );
 		echo '<input type="text" name="' . $this->option_name . '[endpoint]" id="' . $this->option_name . '_endpoint' . '" value="' . ( isset( $options['endpoint'] ) ? esc_attr( $options['endpoint'] ) : '' ) . '"> '
 		?>
@@ -286,7 +286,7 @@ class Notify_Admin {
 			<?php
 			_e(
 				'Can be used when you want to overwrite the endpoint Notify is calling. (f.e. different url for Staging/production).<br/> If you leave this field empty, the plugin will call Notify production endpoint.',
-				'notify'
+                $this->plugin_name
 			);
 			?>
 		</p>
@@ -298,13 +298,13 @@ class Notify_Admin {
 	 *
 	 * @since  1.0.0
 	 */
-	public function notify_client_text() {
+	public function notify_eu_client_text() {
 		$options = get_option( $this->option_name );
 		echo '<input type="text" name="' . $this->option_name . '[client]" id="' . $this->option_name . '_client' . '" value="' . ( isset( $options['client'] ) ? esc_attr( $options['client'] ) : '' ) . '"> '
 		?>
 		<p class="description">
 			<?php
-			_e( 'Can be found in your Notify Settings page -> Credentials', 'notify' );
+			_e( 'Can be found in your Notify Settings page -> Credentials', $this->plugin_name );
 			?>
 		</p>
 		<?php
@@ -315,13 +315,13 @@ class Notify_Admin {
 	 *
 	 * @since  1.0.0
 	 */
-	public function notify_secret_text() {
+	public function notify_eu_secret_text() {
 		$options = get_option( $this->option_name );
 		echo '<input type="text" name="' . $this->option_name . '[secret]" id="' . $this->option_name . '_secret' . '" value="' . ( isset( $options['secret'] ) ? esc_attr( $options['secret'] ) : '' ) . '"> '
 		?>
 		<p class="description">
 			<?php
-			_e( 'Can be found in your Notify Settings page -> Credentials', 'notify' );
+			_e( 'Can be found in your Notify Settings page -> Credentials', $this->plugin_name );
 			?>
 		</p>
 		<?php
@@ -333,13 +333,13 @@ class Notify_Admin {
 	 *
 	 * @since  1.0.0
 	 */
-	public function notify_transport_text() {
+	public function notify_eu_transport_text() {
 		$options = get_option( $this->option_name );
 		echo '<input type="text" name="' . $this->option_name . '[transport]" placeholder="SMTP" id="' . $this->option_name . '_transport' . '" value="' . ( isset( $options['transport'] ) ? esc_attr( $options['transport'] ) : '' ) . '"> '
 		?>
 		<p class="description">
 			<?php
-			_e( 'Can be used to send notifications to a default transport', 'notify' );
+			_e( 'Can be used to send notifications to a default transport', $this->plugin_name );
 			?>
 		</p>
 		<?php
@@ -350,13 +350,13 @@ class Notify_Admin {
 	 *
 	 * @since  1.0.0
 	 */
-	public function notify_language_text() {
+	public function notify_eu_language_text() {
 		$options = get_option( $this->option_name );
 		echo '<input type="text" name="' . $this->option_name . '[language]" placeholder="nl" id="' . $this->option_name . '_language' . '" value="' . ( isset( $options['language'] ) ? esc_attr( $options['language'] ) : '' ) . '"> '
 		?>
 		<p class="description">
 			<?php
-			_e( 'Can be used to send notifications in a default language', 'notify' );
+			_e( 'Can be used to send notifications in a default language', $this->plugin_name );
 			?>
 		</p>
 		<?php
@@ -367,13 +367,13 @@ class Notify_Admin {
 	 *
 	 * @since  1.0.0
 	 */
-	public function notify_to_name_text() {
+	public function notify_eu_to_name_text() {
 		$options = get_option( $this->option_name );
 		echo '<input type="text" name="' . $this->option_name . '[to_name]" placeholder="John Doe" id="' . $this->option_name . '_to_name' . '" value="' . ( isset( $options['to_name'] ) ? esc_attr( $options['to_name'] ) : '' ) . '"> '
 		?>
 		<p class="description">
 			<?php
-			_e( 'Can be used to send notifications to a default email address', 'notify' );
+			_e( 'Can be used to send notifications to a default email address', $this->plugin_name );
 			?>
 		</p>
 		<?php
@@ -384,13 +384,13 @@ class Notify_Admin {
 	 *
 	 * @since  1.0.0
 	 */
-	public function notify_to_email_text() {
+	public function notify_eu_to_email_text() {
 		$options = get_option( $this->option_name );
 		echo '<input type="text" name="' . $this->option_name . '[to_email]" placeholder="wordpress@mydomain.com" id="' . $this->option_name . '_to_email' . '" value="' . ( isset( $options['to_email'] ) ? esc_attr( $options['to_email'] ) : '' ) . '"> '
 		?>
 		<p class="description">
 			<?php
-			_e( 'Can be used to send notifications to a default email address', 'notify' );
+			_e( 'Can be used to send notifications to a default email address', $this->plugin_name );
 			?>
 		</p>
 		<?php
@@ -401,7 +401,7 @@ class Notify_Admin {
 	 *
 	 * @since  1.0.0
 	 */
-	public function notify_override_select() {
+	public function notify_eu_override_select() {
 		$options = get_option( $this->option_name );
 		?>
 		<select name="<?php echo $this->option_name . '[override]'; ?>">
@@ -412,7 +412,7 @@ class Notify_Admin {
 				( isset( $options['override'] ) ? $options['override'] : '' )
 			)
 			?>
-				><?php _e( 'No', 'notify' ); ?></option>
+				><?php _e( 'No', $this->plugin_name ); ?></option>
 			<option value="1"
 			<?php
 			selected(
@@ -420,13 +420,13 @@ class Notify_Admin {
 				( isset( $options['override'] ) ? $options['override'] : '' )
 			)
 			?>
-				><?php _e( 'Yes', 'notify' ); ?></option>
+				><?php _e( 'Yes', $this->plugin_name ); ?></option>
 		</select>
 		<p class="description">
 			<?php
 			_e(
 				'If enabled, all notifications will be sent to the above "To Name" and "To Address", regardless of values set by your code.',
-				'notify'
+                $this->plugin_name
 			);
 			?>
 		</p>
@@ -444,49 +444,49 @@ class Notify_Admin {
 		if ( isset( $input['endpoint'] ) && ! empty( $input['endpoint'] ) ) {
 			$validated = sanitize_text_field( $input['endpoint'] );
 			if ( $validated !== $input['endpoint'] ) {
-				$errors[] = __( 'Endpoint was invalid', 'notify' );
+				$errors[] = __( 'Endpoint was invalid', $this->plugin_name );
 			}
 		}
 
 		if ( isset( $input['client'] ) && ! empty( $input['client'] ) ) {
 			$validated = sanitize_text_field( $input['client'] );
 			if ( $validated !== $input['client'] ) {
-				$errors[] = __( 'Client ID was invalid', 'notify' );
+				$errors[] = __( 'Client ID was invalid', $this->plugin_name );
 			}
 		}
 
 		if ( isset( $input['secret'] ) && ! empty( $input['secret'] ) ) {
 			$validated = sanitize_text_field( $input['secret'] );
 			if ( $validated !== $input['secret'] ) {
-				$errors[] = __( 'Secret key was invalid', 'notify' );
+				$errors[] = __( 'Secret key was invalid', $this->plugin_name );
 			}
 		}
 
 		if ( isset( $input['transport'] ) && ! empty( $input['transport'] ) ) {
 			$validated = sanitize_text_field( $input['transport'] );
 			if ( $validated !== $input['transport'] ) {
-				$errors[] = __( 'Transport was invalid', 'notify' );
+				$errors[] = __( 'Transport was invalid', $this->plugin_name );
 			}
 		}
 
 		if ( isset( $input['language'] ) && ! empty( $input['language'] ) ) {
 			$validated = sanitize_text_field( $input['language'] );
 			if ( $validated !== $input['language'] ) {
-				$errors[] = __( 'Language was invalid', 'notify' );
+				$errors[] = __( 'Language was invalid', $this->plugin_name );
 			}
 		}
 
 		if ( isset( $input['to_email'] ) && ! empty( $input['to_email'] ) ) {
 			$validated = sanitize_email( $input['to_email'] );
 			if ( $validated !== $input['to_email'] ) {
-				$errors[] = __( 'To email was invalid', 'notify' );
+				$errors[] = __( 'To email was invalid', $this->plugin_name );
 			}
 		}
 
 		if ( isset( $input['to_name'] ) && ! empty( $input['to_name'] ) ) {
 			$validated = sanitize_text_field( $input['to_name'] );
 			if ( $validated !== $input['to_name'] ) {
-				$errors[] = __( 'To name was invalid', 'notify' );
+				$errors[] = __( 'To name was invalid', $this->plugin_name );
 			}
 		}
 

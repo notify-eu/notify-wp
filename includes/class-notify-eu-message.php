@@ -3,15 +3,15 @@
  * The notify message class.
  *
  * @since      1.0.0
- * @package    Notify
- * @subpackage Notify/includes
+ * @package    Notify-eu
+ * @subpackage Notify-eu/includes
  * @author     Notify <info@notify.eu>
  */
 
 /**
  * Class Notify_Message
  */
-class Notify_Message implements JsonSerializable {
+class Notify_Eu_Message implements JsonSerializable {
 
 	private $clientId;
 	private $secret;

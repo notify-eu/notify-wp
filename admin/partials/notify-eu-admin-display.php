@@ -26,7 +26,7 @@
 		$url  = 'https://notify.eu';
 		$link = sprintf(
 			wp_kses(
-				__( 'A <a href="%1$s" target="%2$s">Notify</a> account is required to use this plugin and the Notify service.', 'notify' ),
+				__( 'A <a href="%1$s" target="%2$s">Notify</a> account is required to use this plugin and the Notify service.', $this->plugin_name ),
 				array(
 					'a' => array(
 						'href'   => array(),
@@ -46,7 +46,7 @@
 		$url  = 'https://app.notify.eu/register';
 		$link = sprintf(
 			wp_kses(
-				__( 'If you need to register for an account, you can do so at <a href="%1$s" target="%2$s">Notify.eu</a>.', 'notify' ),
+				__( 'If you need to register for an account, you can do so at <a href="%1$s" target="%2$s">Notify.eu</a>.', $this->plugin_name ),
 				array(
 					'a' => array(
 						'href'   => array(),

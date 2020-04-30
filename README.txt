@@ -32,3 +32,7 @@ Notify Privacy policy: https://notify.eu/privacy-policy/
 
 6. Example: do_action( 'notify_send', 'welcomeTemplate', array('to' => array(array('name' => 'John Doe', 'email' => 'john@acme.com')), 'cc' => array(array('name' => 'John Doe', 'email' => 'john@acme.com'))), 'nl', 'SMTP', array('username' => 'John'));
 7. When an error occurs or some param is missing, an entry will be inserted in debug.log when WP_DEBUG_LOG: true
+
+== Screenshots ==
+
+1. The Notify configuration screen used on the WordPress backend.

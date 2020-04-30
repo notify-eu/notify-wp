@@ -5,3 +5,5 @@
 /.gitattributes     export-ignore
 /.editorconfig      export-ignore
 /.gitignore         export-ignore
+/.github            export-ignore
+/.wordpress-org     export-ignore
